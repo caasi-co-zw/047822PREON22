@@ -20,11 +20,10 @@ Module Task1
             Console.WriteLine("1. Add Reservation")
             Console.WriteLine("2. Check Reservation")
             Console.WriteLine("3. Exit System")
-            MenuOption = Console.Read()
+            MenuOption = Console.ReadLine()
             Select Case MenuOption
                 Case 1
                     AddReservation()
-                    Continue
                 Case 2
                     CheckReservation()
                 Case Is >= 3
@@ -43,7 +42,7 @@ Module Task1
 
             'Ask if they want another reservation
             Console.WriteLine("1. Add another reservation")
-            AddAnother = Console.Read()
+            AddAnother = Console.ReadLine()
         Loop
     End Sub
 
@@ -54,7 +53,7 @@ Module Task1
 
             'Ask if they want another reservation
             Console.WriteLine("1. Check another reservation")
-            CheckAnother = Console.Read()
+            CheckAnother = Console.ReadLine()
         Loop
     End Sub
 End Module
