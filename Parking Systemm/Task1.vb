@@ -53,7 +53,7 @@ Module Task1
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
-            If Day > 0 AndAlso Day <= MAX_DAYS Then
+            If Day > 0 And Day <= MAX_DAYS Then
                 Console.WriteLine("{0} must be between 1 and 14.",Day)
                 Continue
             End If
