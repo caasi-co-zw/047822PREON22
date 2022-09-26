@@ -54,7 +54,7 @@ Module Task1
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
-            If Day > 0 AndAlso Day <= MAX_DAYS Then
+            If Day < 1 Or Day > MAX_DAYS Then
                 Console.WriteLine("{0} must be between 1 and 14.",Day)
                 Continue
             End If
@@ -73,11 +73,10 @@ Module Task1
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
-            'Ask if they want another reservation
-            Console.WriteLine("Add another reservation? [Y/N]")
-            AddAnother = Console.ReadLine()
+            Console.WriteLine("Do you want an accessible space? [Y/N]")
+            Accessible = Console.ReadLine()
 
-            RecordReservation(Day,Names,License,Accessible)
+            RecordReservation(Day,Names,License,Accessible.ToUpper = "Y" )
 
             'Ask if they want another reservation
             Console.WriteLine("Add another reservation? [Y/N]")
@@ -87,9 +86,9 @@ Module Task1
 
     ' Clears all records
     Sub ClearReservations()
-        ReDim Names(MAX_DAYS) As List(Of String)
-        ReDim Licenses(MAX_DAYS) As List(of String)
-        ReDim Lots(MAX_DAYS) As List(of String)
+        Names(MAX_DAYS).Clear()
+        Licenses(MAX_DAYS).Clear()
+        Lots(MAX_DAYS).Clear()
         Console.WriteLine("Records cleared.")
     End Sub
 
@@ -100,9 +99,7 @@ Module Task1
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
 
-    Sub ReseveToLast()
-
     Function SlotsAvailable(ByVal Day As Integer)
-        Return Lots(Day).Count == MAX_SLOTS
+        Return Lots(Day).Count = MAX_SLOTS
     End Function
 End Module

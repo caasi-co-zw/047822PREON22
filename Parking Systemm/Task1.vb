@@ -96,6 +96,6 @@ Module Task1
     End Sub
 
     Function SlotsAvailable(ByVal Day As Integer)
-        Return Lots(Day).Count = MAX_SLOTS
+        Return If(Lots(Day).Count = MAX_SLOTS,True,False)
     End Function
 End Module
