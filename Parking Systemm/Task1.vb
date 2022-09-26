@@ -95,7 +95,10 @@ Module Task1
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
 
-    Function SlotsAvailable(ByVal Day As Integer)
-        Return (Lots(Day).Count = MAX_SLOTS)
+    Function SlotsAvailable(ByVal Day As Integer) As Boolean
+        If Lots(Day).Count = MAX_SLOTS Then
+            Return True
+        Else
+            Return False
     End Function
-End Module 
+End Module
