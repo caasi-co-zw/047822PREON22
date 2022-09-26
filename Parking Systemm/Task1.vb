@@ -1,6 +1,6 @@
 Module Task1
 
-    #Region
+    #Region: Global Variable
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
@@ -12,7 +12,8 @@ Module Task1
     Dim Licenses(MAX_DAYS) As List(of String)
     Dim Lots(MAX_DAYS) As List(of String)
     #End Region
-    
+
+    #Region: Entry Point
     Sub Main()
         Dim MenuOption As Integer = 1
         Do While MenuOption < 3
@@ -45,7 +46,9 @@ Module Task1
         'Exit app
         Console.WriteLine("System terminated. Have a good day!")
     End Sub
+    #End Region
 
+    #Region: Add Reservation
     Sub AddReservation()
         Dim Day As Integer
         Dim Name As String
@@ -72,9 +75,7 @@ Module Task1
             Console.WriteLine("Full name: ")
             Name = Console.ReadLine()
 
-            'Validate date
-
-            'Record name
+            'Record license
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
@@ -83,24 +84,27 @@ Module Task1
             AddAnother = Console.ReadLine()
         Loop
     End Sub
+    #End Region
 
+    #Region: Clear Reservations
+    ' Clears all records
     Sub ClearReservations()
-        Dim CheckAnother As Integer = 1
-        Do While CheckAnother = 1
-            'Check reservation
-
-            'Ask if they want another reservation
-            Console.WriteLine("1. Check another reservation")
-            CheckAnother = Console.ReadLine()
-        Loop
+        ReDim Names(MAX_DAYS) As New Dictionary(Of String, String)
+        ReDim Licenses(MAX_DAYS) As List(of String)
+        ReDim Lots(MAX_DAYS) As List(of String)
     End Sub
+    #End Region
 
+    #Region: Record Reservation
     Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
-        Lots(Day).Add()
-        Names(Day,License) = Names
+        Lots(Day).Add(License)
+        Names(Day).Add(License,Names)
     End Sub
+    #End Region
 
+    #Region: Check For Open Lots
     Function SlotsAvailable(ByVal Day As Integer)
         Return Lots(Day).Count == MAX_SLOTS
     End Function
+    #End Region
 End Module
