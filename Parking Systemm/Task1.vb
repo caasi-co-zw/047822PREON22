@@ -82,12 +82,9 @@ Module Task1
 
     ' Clears all records
     Sub ClearReservations()
-        Names = Empty
-        Names(MAX_DAYS)
-        Licenses = Empty
-        Licenses(MAX_DAYS)
-        Lots = Empty
-        Lots(MAX_DAYS)
+        Names().Clear()
+        Licenses().Clear()
+        Lots().Clear()
         Console.WriteLine("Records cleared.")
     End Sub
 
