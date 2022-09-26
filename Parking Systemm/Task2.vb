@@ -95,11 +95,12 @@ Module Task1
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String,Accessible As Boolean)
         Lots(Day).Add(License)
         Names(Day).Add(Name)
+        Console.WriteLine("Ln:98")
         Console.WriteLine("Records Saved")
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
 
     Function SlotsAvailable(ByVal Day As Integer)
-        Return Lots(Day).Count = MAX_SLOTS
+        Return (Lots(Day).Count = MAX_SLOTS)
     End Function
 End Module
