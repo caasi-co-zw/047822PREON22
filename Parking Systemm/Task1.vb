@@ -82,16 +82,17 @@ Module Task1
 
     ' Clears all records
     Sub ClearReservations()
-        'Names(MAX_DAYS) = Nothing
-        'Licenses(MAX_DAYS) = Nothing
-        'Lots(MAX_DAYS) = Nothing
-        Console.WriteLine("Coming soon!")
+        Names(MAX_DAYS) = Empty
+        Licenses(MAX_DAYS) = Empty
+        Lots(MAX_DAYS) = Empty
+        Console.WriteLine("Records cleared.")
     End Sub
 
-    Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
+    Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String)
         Lots(Day).Add(License)
-        Names(Day).Add(Names)
+        Names(Day).Add(Name)
         Console.WriteLine("Records Saved")
+        Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
 
     Function SlotsAvailable(ByVal Day As Integer)
