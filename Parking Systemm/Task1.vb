@@ -1,48 +1,54 @@
 Module Task1
+    'Dim Names as New List(of String)
+    'Dim Licenses as New List(of String)
+    'Dim Lots as New List(of String)
+
     Sub Main()
-
-        ''' DB STRUCTURE
-        ''' [ (An array of all the days (14))
-        '''     [ (Each day is an array of Spaces available (20))
-        '''         { (Each parking lot is a dictionary containing all the details needed)
-        '''             "license": 123232,
-        '''             "name": "Shaun K"
-        '''         }
-        '''     ]
-        ''' ]
-        '''
-        Dim Bookings As New List(Of Dictionary(Of Integer,String))()
-        Dim Days(14) As Integer
-        Dim Spaces(20) As Integer
-
+        Menu()
     End Sub
-    Function isDayAvailable(Day As Int)
-        For Each Booking In Bookings
-            If Booking = Day Then
-                If Not IsNothing i Then
-                    Return True
-                    Exit For
-                Else
-                    Return False
-                    Exit For
-                End If
-            End If
-        Next
+
+    Function Menu()
+        Dim MenuOption As Integer = 1
+        Do While MenuOption < 3
+            Console.WriteLine("SYSTEM MENU")
+            Console.WriteLine("1. Add Reservation")
+            Console.WriteLine("2. Check Reservation")
+            Console.WriteLine("3. Exit System")
+            MenuOption = Console.Read()
+            Select Case MenuOption
+                Case 1
+                    AddReservation()
+                    Continue
+                Case 2
+                    CheckReservation()
+                Case Is >= 3
+                    Exit Do
+            End Select
+        Loop
+
+        'Exit app
+        Console.WriteLine("System terminated. Have a good day!")
     End Function
 
-    Function getName(Day As Int,Space As Int)
-        Days(Day)
+    Function AddReservation()
+        Dim AddAnother As Integer = 1
+        Do While AddAnother = 1
+            'Record reservation
+
+            'Ask if they want another reservation
+            Console.WriteLine("1. Add another reservation")
+            AddAnother = Console.Read()
+        Loop
     End Function
 
-    Function getDay()
+    Function CheckReservation()
+        Dim CheckAnother As Integer = 1
+        Do While CheckAnother = 1
+            'Check reservation
 
-    End Function
-
-    Function AddBooking(Day As Integer,Space As Integer,License As String)
-        Bookings.Add(
-            New Dictionary(Of Integer,String)() From {
-                {"Day",Day}
-                }
-            )
+            'Ask if they want another reservation
+            Console.WriteLine("1. Check another reservation")
+            CheckAnother = Console.Read()
+        Loop
     End Function
 End Module
