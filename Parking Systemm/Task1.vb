@@ -1,7 +1,7 @@
 Module Task1
-    'Dim Names as New List(of String)
-    'Dim Licenses as New List(of String)
-    'Dim Lots as New List(of String)
+    Dim Names(14,20) as New List(of String)
+    Dim Licenses(14,20) as New List(of String)
+    Dim Lots(14,20) as New List(of String)
 
     Sub Main()
         Menu()
@@ -36,9 +36,27 @@ Module Task1
     End Sub
 
     Sub AddReservation()
+        Dim Day As Integer
+        Dim Name As String
+        Dim License As String
         Dim AddAnother As Integer = 1
+
         Do While AddAnother = 1
-            'Record reservation
+            'Record reservation day
+            Console.WriteLine("Day to reserve: ")
+            Day = Console.ReadLine()
+
+            'Validate date
+
+            'Record name
+            Console.WriteLine("Full name: ")
+            Name = Console.ReadLine()
+
+            'Validate date
+
+            'Record name
+            Console.WriteLine("License no: ")
+            License = Console.ReadLine()
 
             'Ask if they want another reservation
             Console.WriteLine("1. Add another reservation")
