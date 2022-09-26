@@ -48,6 +48,7 @@ Module Task1
         Dim Day As Integer
         Dim Name As String
         Dim License As String
+        Dim Accessible As String
         Dim AddAnother As String = "Y"
 
         Do While AddAnother.ToUpper = "Y"
@@ -74,7 +75,11 @@ Module Task1
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
-            RecordReservation(Day,Names,License)
+            'Ask if they want another reservation
+            Console.WriteLine("Add another reservation? [Y/N]")
+            AddAnother = Console.ReadLine()
+
+            RecordReservation(Day,Names,License,Accessible)
 
             'Ask if they want another reservation
             Console.WriteLine("Add another reservation? [Y/N]")
@@ -90,7 +95,7 @@ Module Task1
         Console.WriteLine("Coming soon!")
     End Sub
 
-    Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
+    Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String,Accessible As Boolean)
         Lots(Day).Add(License)
         Names(Day).Add(License,Names)
         Console.WriteLine("Records Saved")
