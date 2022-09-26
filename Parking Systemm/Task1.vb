@@ -4,10 +4,8 @@ Module Task1
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
 
-    ' Names are indexed by day and license
-    Dim Names(MAX_DAYS) As New Dictionary(Of String,String)
-
     'Licenses and Lots are indexed by day
+    Dim Names(MAX_DAYS) As List(Of String)
     Dim Licenses(MAX_DAYS) As List(of String)
     Dim Lots(MAX_DAYS) As List(of String)
 
@@ -92,7 +90,7 @@ Module Task1
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
         Lots(Day).Add(License)
-        Names(Day).Add(License,Names)
+        Names(Day).Add(Names)
         Console.WriteLine("Records Saved")
     End Sub
 
