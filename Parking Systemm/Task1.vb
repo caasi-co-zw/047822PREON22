@@ -1,16 +1,19 @@
 Module Task1
+
+    #Region
+    'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
 
-    Dim Names(MAX_DAYS,MAX_SLOTS) as List(of String)
-    Dim Licenses(MAX_DAYS,MAX_SLOTS) as List(of String)
-    Dim Lots(MAX_DAYS,MAX_SLOTS) as List(of String)
+    ' Names are indexed by day and license
+    Dim Names(MAX_DAYS) As New Dictionary(Of String, String)
 
+    'Licenses and Lots are indexed by day
+    Dim Licenses(MAX_DAYS) As List(of String)
+    Dim Lots(MAX_DAYS) As List(of String)
+    #End Region
+    
     Sub Main()
-        Menu()
-    End Sub
-
-    Sub Menu()
         Dim MenuOption As Integer = 1
         Do While MenuOption < 3
 
@@ -19,16 +22,21 @@ Module Task1
                 MenuOption = 3
             End If
 
-            Console.WriteLine("SYSTEM MENU")
-            Console.WriteLine("1. Add Reservation")
-            Console.WriteLine("2. Check Reservation")
-            Console.WriteLine("3. Exit System")
+            Console.WriteLine("|=================================|")
+            Console.WriteLine("|            SYSTEM MENU          |")
+            Console.WriteLine("|=================================|")
+            Console.WriteLine("| [1] Add Reservation             |")
+            Console.WriteLine("| [2] Clear Reservations          |")
+            Console.WriteLine("| [3] Exit System                 |")
+            Console.WriteLine("|=================================|")
+
             MenuOption = Console.ReadLine()
+
             Select Case MenuOption
                 Case 1
                     AddReservation()
                 Case 2
-                    CheckReservation()
+                    ClearReservations()
                 Case Is >= 3
                     Exit Do
             End Select
@@ -42,14 +50,23 @@ Module Task1
         Dim Day As Integer
         Dim Name As String
         Dim License As String
-        Dim AddAnother As Integer = 1
+        Dim AddAnother As String = "Y"
 
-        Do While AddAnother = 1
+        Do While AddAnother.ToUpper = "Y"
             'Record reservation day
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
-            'Validate date
+            If Day > 0 AndAlso Day <= MAX_DAYS Then
+                Console.WriteLine("{0} must be between 1 and 14.",Day)
+                Continue
+            End If
+
+            'Check for availableslots for the day
+            If SlotsAvailable(Day) <> True Then
+                Console.WriteLine("{0} is fully booked. Try another day.",Day)
+                Continue
+            End If
 
             'Record name
             Console.WriteLine("Full name: ")
@@ -62,12 +79,12 @@ Module Task1
             License = Console.ReadLine()
 
             'Ask if they want another reservation
-            Console.WriteLine("1. Add another reservation")
+            Console.WriteLine("Add another reservation? [Y/N]")
             AddAnother = Console.ReadLine()
         Loop
     End Sub
 
-    Sub CheckReservation()
+    Sub ClearReservations()
         Dim CheckAnother As Integer = 1
         Do While CheckAnother = 1
             'Check reservation
@@ -77,4 +94,13 @@ Module Task1
             CheckAnother = Console.ReadLine()
         Loop
     End Sub
+
+    Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
+        Lots(Day).Add()
+        Names(Day,License) = Names
+    End Sub
+
+    Function SlotsAvailable(ByVal Day As Integer)
+        Return Lots(Day).Count == MAX_SLOTS
+    End Function
 End Module
