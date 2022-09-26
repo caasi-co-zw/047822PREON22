@@ -5,7 +5,7 @@ Module Task1
     Dim MAX_SLOTS As Integer = 20
 
     ' Names are indexed by day and license
-    Dim Names(MAX_DAYS) As Dictionary(Of String, String) = New Dictionary(Of String,String)
+    Dim Names(MAX_DAYS) As New Dictionary(Of String,String)
 
     'Licenses and Lots are indexed by day
     Dim Licenses(MAX_DAYS) As List(of String)
