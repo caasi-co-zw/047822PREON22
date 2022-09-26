@@ -84,9 +84,10 @@ Module Task1
 
     ' Clears all records
     Sub ClearReservations()
-        ReDim Names(MAX_DAYS) As New Dictionary(Of String, String)
-        ReDim Licenses(MAX_DAYS) As List(of String)
-        ReDim Lots(MAX_DAYS) As List(of String)
+        'Names(MAX_DAYS) = Nothing
+        'Licenses(MAX_DAYS) = Nothing
+        'Lots(MAX_DAYS) = Nothing
+        Console.WriteLine("Coming soon!")
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Names As String,ByVal License As String)
