@@ -7,7 +7,7 @@ Module Task1
         Menu()
     End Sub
 
-    Function Menu()
+    Sub Menu()
         Dim MenuOption As Integer = 1
         Do While MenuOption < 3
             Console.WriteLine("SYSTEM MENU")
@@ -17,10 +17,10 @@ Module Task1
             MenuOption = Console.Read()
             Select Case MenuOption
                 Case 1
-                    Return AddReservation()
+                    AddReservation()
                     Continue
                 Case 2
-                    Return CheckReservation()
+                    CheckReservation()
                 Case Is >= 3
                     Exit Do
             End Select
@@ -28,9 +28,9 @@ Module Task1
 
         'Exit app
         Console.WriteLine("System terminated. Have a good day!")
-    End Function
+    End Sub
 
-    Function AddReservation()
+    Sub AddReservation()
         Dim AddAnother As Integer = 1
         Do While AddAnother = 1
             'Record reservation
@@ -39,10 +39,9 @@ Module Task1
             Console.WriteLine("1. Add another reservation")
             AddAnother = Console.Read()
         Loop
-        Return True
-    End Function
+    End Sub
 
-    Function CheckReservation()
+    Sub CheckReservation()
         Dim CheckAnother As Integer = 1
         Do While CheckAnother = 1
             'Check reservation
@@ -51,6 +50,5 @@ Module Task1
             Console.WriteLine("1. Check another reservation")
             CheckAnother = Console.Read()
         Loop
-        Return True
-    End Function
+    End Sub
 End Module
