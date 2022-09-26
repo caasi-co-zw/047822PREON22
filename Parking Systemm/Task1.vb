@@ -17,10 +17,10 @@ Module Task1
             MenuOption = Console.Read()
             Select Case MenuOption
                 Case 1
-                    AddReservation()
+                    Return AddReservation()
                     Continue
                 Case 2
-                    CheckReservation()
+                    Return CheckReservation()
                 Case Is >= 3
                     Exit Do
             End Select
@@ -39,6 +39,7 @@ Module Task1
             Console.WriteLine("1. Add another reservation")
             AddAnother = Console.Read()
         Loop
+        Return True
     End Function
 
     Function CheckReservation()
@@ -50,5 +51,6 @@ Module Task1
             Console.WriteLine("1. Check another reservation")
             CheckAnother = Console.Read()
         Loop
+        Return True
     End Function
 End Module
