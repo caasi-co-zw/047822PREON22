@@ -10,6 +10,12 @@ Module Task1
     Sub Menu()
         Dim MenuOption As Integer = 1
         Do While MenuOption < 3
+
+            'Make sure value is in range
+            If MenuOption < 1 Then
+                MenuOption = 3
+            End If
+
             Console.WriteLine("SYSTEM MENU")
             Console.WriteLine("1. Add Reservation")
             Console.WriteLine("2. Check Reservation")
