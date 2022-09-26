@@ -1,7 +1,10 @@
 Module Task1
-    Dim Names(14,20) as New List(of String)
-    Dim Licenses(14,20) as New List(of String)
-    Dim Lots(14,20) as New List(of String)
+    Dim MAX_DAYS As Integer = 14
+    Dim MAX_SLOTS As Integer = 20
+
+    Dim Names(MAX_DAYS,MAX_SLOTS) as List(of String)
+    Dim Licenses(MAX_DAYS,MAX_SLOTS) as List(of String)
+    Dim Lots(MAX_DAYS,MAX_SLOTS) as List(of String)
 
     Sub Main()
         Menu()
