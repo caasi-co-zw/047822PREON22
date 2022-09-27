@@ -3,7 +3,7 @@ Module Task1
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
-    Dim InaccessibleSlotIndex = 0;
+    Dim GeneralSlotsIndex = 0;
 
     'Licenses and Lots are indexed by day
     Dim Names(MAX_DAYS) As ArrayList = New ArrayList()
@@ -65,7 +65,7 @@ Module Task1
 
             If Accessible.ToUpper = "Y" Then
                 'Check for availableslots for the day
-                If CheckInaccessibleAvailableSlots(Day) <> True Then
+                If AvailableGeneralSlots(Day) <> True Then
                     Console.WriteLine("Day {0}, inaccessible is fully booked. Try another day.",Day)
                     Continue While
                 End If
@@ -108,15 +108,15 @@ Module Task1
             Console.WriteLine("Records Saved")
             Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Index(License))
         Else
-            Lots(Day).Insert(InaccessibleSlotIndex,License)
-            Names(Day).Insert(InaccessibleSlotIndex,Name)
+            Lots(Day).Insert(GeneralSlotsIndex,License)
+            Names(Day).Insert(GeneralSlotsIndex,Name)
             Console.WriteLine("Records Saved")
-            Console.WriteLine("You have been assigned to parking lot no {0}",InaccessibleSlotIndex)
-            InaccessibleSlotIndex = InaccessibleSlotIndex-1
+            Console.WriteLine("You have been assigned to parking lot no {0}",GeneralSlotsIndex)
+            GeneralSlotsIndex = GeneralSlotsIndex-1
         End If
     End Sub
 
-    Function CheckInaccessibleAvailableSlots(ByVal Day As Integer) As Boolean
+    Function AvailableGeneralSlots(ByVal Day As Integer) As Boolean
         For Index = MAX_SLOTS To 0 Step -1
             If Lots(Day)(Index) = Nothing Then
                 Return True
