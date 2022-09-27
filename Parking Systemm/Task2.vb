@@ -102,14 +102,18 @@ Module Task1
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String,Accessible As Boolean)
-    If Accessible <> True Then
-        Lots(Day).Add(License)
-        Names(Day).Add(Name)
-        Console.WriteLine("Records Saved")
-        Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
-    Else
-
-    End If
+        If Accessible <> True Then
+            Lots(Day).Add(License)
+            Names(Day).Add(Name)
+            Console.WriteLine("Records Saved")
+            Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Index(License))
+        Else
+            Lots(Day).Insert(InaccessibleSlotIndex,License)
+            Names(Day).Insert(InaccessibleSlotIndex,Name)
+            Console.WriteLine("Records Saved")
+            Console.WriteLine("You have been assigned to parking lot no {0}",InaccessibleSlotIndex)
+            InaccessibleSlotIndex = InaccessibleSlotIndex-1
+        End If
     End Sub
 
     Sub FixValues()
