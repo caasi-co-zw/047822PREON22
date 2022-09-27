@@ -94,8 +94,4 @@ Module Task1
         Console.WriteLine("Records Saved!")
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
-
-    Function SlotsAvailable(ByVal Day As Integer) As Boolean
-        Return (Lots(Day).Count < MAX_SLOTS)
-    End Function
 End Module
