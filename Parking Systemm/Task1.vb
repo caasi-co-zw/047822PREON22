@@ -3,17 +3,15 @@ Module Task1
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
-    Dim DayIndex = 0;
-    Dim SlotIndex = 0;
 
     'Licenses and Lots are indexed by day
-    Dim Names(MAX_DAYS) As List(Of String)
-    Dim Licenses(MAX_DAYS) As List(of String)
-    Dim Lots(MAX_DAYS) As List(of String)
+    Dim Names(MAX_DAYS) As ArrayList = New ArrayList()
+    Dim Licenses(MAX_DAYS) As ArrayList =  New ArrayList()
+    Dim Lots(MAX_DAYS) As ArrayList =  New ArrayList()
 
     Sub Main()
         Dim MenuOption As Integer = 1
-        Do While MenuOption < 3
+        While MenuOption < 3
 
             'Make sure value is in range
             If MenuOption < 1 Then
@@ -36,9 +34,9 @@ Module Task1
                 Case 2
                     ClearReservations()
                 Case Is >= 3
-                    Exit Do
+                    Exit While
             End Select
-        Loop
+        End While
 
         'Exit app
         Console.WriteLine("System terminated. Have a good day!")
@@ -50,20 +48,20 @@ Module Task1
         Dim License As String
         Dim AddAnother As String = "Y"
 
-        Do While AddAnother.ToUpper = "Y"
+        While AddAnother.ToUpper = "Y"
             'Record reservation day
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
-            If Day < 1 Or Day > MAX_DAYS Then
+            If Day < 1 OrElse Day > MAX_DAYS Then
                 Console.WriteLine("{0} must be between 1 and 14.",Day)
-                Continue
+                Continue While
             End If
 
             'Check for availableslots for the day
             If Lots(Day).Count >= MAX_SLOTS Then
                 Console.WriteLine("{0} is fully booked. Try another day.",Day)
-                Continue
+                Continue While
             End If
 
             'Record name
@@ -79,7 +77,7 @@ Module Task1
             'Ask if they want another reservation
             Console.WriteLine("Add another reservation? [Y/N]")
             AddAnother = Console.ReadLine()
-        Loop
+        End While
     End Sub
 
     ' Clears all records
