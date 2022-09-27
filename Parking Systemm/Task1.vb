@@ -59,10 +59,15 @@ Module Task1
             End If
 
             'Check for availableslots for the day
-            If Lots(Day).Count >= MAX_SLOTS Then
+            If Lots(Day) isNot Nothing  And Lots(Day).Count >= MAX_SLOTS Then
                 Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                 Continue While
             End If
+            'Try
+            'Catch Ex As Exception
+            '    Debug.WriteLine(Ex.Message)
+            '    Debug.WriteLine(Ex.StackTrace)
+            'End Try
 
             'Record name
             Console.WriteLine("Full name: ")
