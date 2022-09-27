@@ -3,6 +3,8 @@ Module Task1
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
+    Dim DayIndex = 0;
+    Dim SlotIndex = 0;
 
     'Licenses and Lots are indexed by day
     Dim Names(MAX_DAYS) As List(Of String)
@@ -59,7 +61,7 @@ Module Task1
             End If
 
             'Check for availableslots for the day
-            If SlotsAvailable(Day) <> True Then
+            If Lots(Day).Count >= MAX_SLOTS Then
                 Console.WriteLine("{0} is fully booked. Try another day.",Day)
                 Continue
             End If
@@ -91,14 +93,11 @@ Module Task1
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String)
         Lots(Day).Add(License)
         Names(Day).Add(Name)
-        Console.WriteLine("Records Saved")
+        Console.WriteLine("Records Saved!")
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
 
     Function SlotsAvailable(ByVal Day As Integer) As Boolean
-        If Lots(Day).Count = MAX_SLOTS Then
-            Return True
-        Else
-            Return False
+        Return (Lots(Day).Count < MAX_SLOTS)
     End Function
 End Module
