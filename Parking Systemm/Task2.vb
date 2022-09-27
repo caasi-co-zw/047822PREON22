@@ -98,6 +98,7 @@ Module Task1
         Names(MAX_DAYS).Clear()
         Licenses(MAX_DAYS).Clear()
         Lots(MAX_DAYS).Clear()
+        
         Console.WriteLine("Records cleared.")
     End Sub
 
