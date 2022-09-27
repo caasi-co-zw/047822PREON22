@@ -116,10 +116,6 @@ Module Task1
         End If
     End Sub
 
-    Sub FixValues()
-        DayIndex
-    End Sub
-
     Function CheckInaccessibleAvailableSlots(ByVal Day As Integer) As Boolean
         For Index = MAX_SLOTS To 0 Step -1
             If Lots(Day)(Index) = Nothing Then
