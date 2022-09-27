@@ -54,13 +54,13 @@ Module Task1
             Day = Console.ReadLine()
 
             If Day < 1 OrElse Day > MAX_DAYS Then
-                Console.WriteLine("{0} must be between 1 and 14.",Day)
+                Console.WriteLine("Day {0} must be between 1 and 14.",Day)
                 Continue While
             End If
 
             'Check for availableslots for the day
             If Lots(Day).Count >= MAX_SLOTS Then
-                Console.WriteLine("{0} is fully booked. Try another day.",Day)
+                Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                 Continue While
             End If
 
