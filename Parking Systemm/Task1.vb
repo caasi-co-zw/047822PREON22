@@ -5,9 +5,9 @@ Module Task1
     Dim MAX_SLOTS As Integer = 20
 
     'Licenses and Lots are indexed by day
-    Dim Names(MAX_DAYS) As ArrayList = New ArrayList()
-    Dim Licenses(MAX_DAYS) As ArrayList =  New ArrayList()
-    Dim Lots(MAX_DAYS) As ArrayList =  New ArrayList()
+    Dim Names(MAX_DAYS) As List(Of String)
+    Dim Licenses(MAX_DAYS) As List(Of String)
+    Dim Lots(MAX_DAYS) As List(Of String)
 
     Sub Main()
         Dim MenuOption As Integer = 1
