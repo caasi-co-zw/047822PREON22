@@ -1,13 +1,14 @@
+Imports System.Collections.Generic
 Module Task1
 
     'Global Variables
-    Dim MAX_DAYS As Integer = 14
-    Dim MAX_SLOTS As Integer = 20
+    Public MAX_DAYS As Integer = 14
+    Public MAX_SLOTS As Integer = 20
 
     'Licenses and Lots are indexed by day
-    Dim Names(MAX_DAYS) As New List(Of String)
-    Dim Licenses(MAX_DAYS) As New List(Of String)
-    Dim Lots(MAX_DAYS) As New List(Of String)
+    Public Names(MAX_DAYS) As New List(Of String)
+    Public Licenses(MAX_DAYS) As New List(Of String)
+    Public Lots(MAX_DAYS) As New List(Of String)
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -77,7 +78,7 @@ Module Task1
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
-            RecordReservation(Day,Names,License)
+            RecordReservation(Day,Name,License)
 
             'Ask if they want another reservation
             Console.WriteLine("Add another reservation? [Y/N]")
