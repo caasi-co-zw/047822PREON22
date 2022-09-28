@@ -6,9 +6,9 @@ Module Task1
     Public MAX_SLOTS As Integer = 20
 
     'Licenses and Lots are indexed by day
-    Public Names(MAX_DAYS) As New List(Of String)
-    Public Licenses(MAX_DAYS) As New List(Of String)
-    Public Lots(MAX_DAYS) As New List(Of String)
+    Public Names(MAX_DAYS) As New List(Of String)()
+    Public Licenses(MAX_DAYS) As New List(Of String)()
+    Public Lots(MAX_DAYS) As New List(Of String)()
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -64,11 +64,6 @@ Module Task1
                 Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                 Continue While
             End If
-            'Try
-            'Catch Ex As Exception
-            '    Debug.WriteLine(Ex.Message)
-            '    Debug.WriteLine(Ex.StackTrace)
-            'End Try
 
             'Record name
             Console.WriteLine("Full name: ")
