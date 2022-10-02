@@ -14,9 +14,9 @@ Module Task1
     'Global Variables
     Public MAX_DAYS As Integer = 14
     Public MAX_SLOTS As Integer = 20
-    Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
+    Public Names(MAX_DAYS) As List(Of String)
+    Public Licenses(MAX_DAYS) As List(Of String)
+    Public Lots(MAX_DAYS) As List(Of String)
 
     Sub Main()
         Dim MenuOption As Integer = 1
