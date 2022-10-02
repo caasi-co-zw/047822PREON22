@@ -79,10 +79,14 @@ Module Task1
             '   Simply query to check if you have less than 15 results (ie. Results < 15)
             '
             'Check for availableslots for the day
-            If Lots(Day-1) isNot Nothing  And Lots(Day-1).Count >= MAX_SLOTS Then
-                Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
-                Continue While
-            End If
+            Try
+                If Lots(Day-1) IsNot Nothing And Lots(Day-1).Count >= MAX_SLOTS Then
+                    Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
+                    Continue While
+                End If
+            Catch Ex As Exception
+
+            End Try
 
             'Record name
             Console.WriteLine("Full name: ")
