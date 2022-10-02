@@ -1,14 +1,21 @@
+'   ATTENTION---------------------|
+'   REFER TO TASK 1               |
+'   ------------------------------|
+
+Imports System.Collections.Generic
+
 Module Task1
 
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
     Dim GeneralSlotsIndex = 0;
+    Dim AccessibleSlotsIndex = 0;
 
     'Licenses and Lots are indexed by day
-    Dim Names(MAX_DAYS) As ArrayList = New ArrayList()
-    Dim Licenses(MAX_DAYS) As ArrayList = New ArrayList()
-    Dim Lots(MAX_DAYS) As ArrayList = New ArrayList()
+    Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
+    Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
+    Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -55,7 +62,7 @@ Module Task1
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
-            If Day < 1 Or Day > MAX_DAYS Then
+            If Day < 1 OrElse Day > MAX_DAYS Then
                 Console.WriteLine("{0} must be between 1 and 14.",Day)
                 Continue While
             End If
@@ -65,13 +72,13 @@ Module Task1
 
             If Accessible.ToUpper = "Y" Then
                 'Check for availableslots for the day
-                If AvailableGeneralSlots(Day) <> True Then
+                If AvailableAccessibleSlots(Day-1) <> True Then
                     Console.WriteLine("Day {0}, inaccessible is fully booked. Try another day.",Day)
                     Continue While
                 End If
             Else
                 'Check for availableslots for the day
-                If Lots(Day).Count >= MAX_SLOTS Then
+                If AvailableGeneralSlots(Day-1) <> True Then
                     Console.WriteLine("Day {0}, accessible is fully booked. Try another day.",Day)
                     Continue While
                 End If
@@ -93,32 +100,42 @@ Module Task1
         End While
     End Sub
 
-    ' Clears all records
+    ' Clears all records * (Bugs? RT1)
     Sub ClearReservations()
         Names(MAX_DAYS).Clear()
         Licenses(MAX_DAYS).Clear()
         Lots(MAX_DAYS).Clear()
-        
+
         Console.WriteLine("Records cleared.")
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String,Accessible As Boolean)
         If Accessible <> True Then
-            Lots(Day).Add(License)
-            Names(Day).Add(Name)
+            Lots(Day-1).Insert(AccessibleSlotsIndex,License)
+            Names(Day-1).Insert(AccessibleSlotsIndex,Name)
             Console.WriteLine("Records Saved")
-            Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Index(License))
+            Console.WriteLine("You have been assigned to parking lot no {0}",AccessibleSlotsIndex)
         Else
-            Lots(Day).Insert(GeneralSlotsIndex,License)
-            Names(Day).Insert(GeneralSlotsIndex,Name)
+            Lots(Day-1).Insert(GeneralSlotsIndex,License)
+            Names(Day-1).Insert(GeneralSlotsIndex,Name)
             Console.WriteLine("Records Saved")
             Console.WriteLine("You have been assigned to parking lot no {0}",GeneralSlotsIndex)
             GeneralSlotsIndex = GeneralSlotsIndex-1
         End If
     End Sub
 
+    Function AvailableAccessibleSlots(ByVal Day As Integer) As Boolean
+        For Index = MAX_SLOTS-1 To 0 Step -1
+            If Lots(Day)(Index) = Nothing Then
+                AccessibleSlotsIndex = Index;
+                Return True
+            End If
+        Next Index
+        Return False
+    End Function
+
     Function AvailableGeneralSlots(ByVal Day As Integer) As Boolean
-        For Index = MAX_SLOTS To 0 Step -1
+        For Index = MAX_SLOTS-1 To 7 Step -1
             If Lots(Day)(Index) = Nothing Then
                 Return True
             End If
