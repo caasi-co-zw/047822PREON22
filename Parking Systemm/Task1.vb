@@ -4,6 +4,7 @@
 '   ----------------------------------------------------------------------------|
 '   TEST       = Test the feature or function                                   |
 '   BONUS TIP  = Incase you find yourself in a different situation              |
+'   All this should however be applied to the three tasks separately - DRY      |
 '   ----------------------------------------------------------------------------|
 
 Imports System.Collections.Generic
@@ -107,9 +108,9 @@ Module Task1
         '   because you may have to loop through each day, clearing records
         '   or simply redim the three variables like ReDim Names(MAX_DAYS) As List(Of String) = New List(Of String)
         '   if it works.
-        '   Also if data is not to be cleared on prompt - simply call this function on line 25 - in the loop
+        '   Also if data is not to be cleared on prompt - simply call this function on line 26 - in the loop
         '   but only if you have also switched to the timestamp version of the database or you'll have to call it on
-        '   line 22 ;)
+        '   line 23 ;)
 
         Names(MAX_DAYS).Clear()
         Licenses(MAX_DAYS).Clear()
