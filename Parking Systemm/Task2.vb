@@ -11,8 +11,6 @@ Module Task1
     Dim MAX_SLOTS As Integer = 20
     Dim GeneralSlotsIndex = 0;
     Dim AccessibleSlotsIndex = 0;
-
-    'Licenses and Lots are indexed by day
     Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
     Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
     Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
