@@ -115,10 +115,11 @@ Module Task1
         '   Also if data is not to be cleared on prompt - simply call this function on line 26 - in the loop
         '   but only if you have also switched to the timestamp version of the database or you'll have to call it on
         '   line 23 ;)
-
-        Names(MAX_DAYS).Clear()
-        Licenses(MAX_DAYS).Clear()
-        Lots(MAX_DAYS).Clear()
+        If Lots IsNot Nothing
+            Names(MAX_DAYS).Clear()
+            Licenses(MAX_DAYS).Clear()
+            Lots(MAX_DAYS).Clear()
+        End If
         Console.WriteLine("Records cleared.")
     End Sub
 

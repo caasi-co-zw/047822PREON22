@@ -118,9 +118,11 @@ Module Task3
 
     ' Clears all records * (Bugs? RT1)
     Sub ClearReservations()
-        Names(MAX_DAYS).Clear()
-        Licenses(MAX_DAYS).Clear()
-        Lots(MAX_DAYS).Clear()
+        If Lots IsNot Nothing
+            Names(MAX_DAYS).Clear()
+            Licenses(MAX_DAYS).Clear()
+            Lots(MAX_DAYS).Clear()
+        End If
 
         Console.WriteLine("Records cleared.")
     End Sub
@@ -152,7 +154,7 @@ Module Task3
             Console.WriteLine("You have {0} booked accessible spaces on {1}.",Total,Day)
         Else
             For Day = 0 To MAX_DAYS -1
-                Total = Total + GetAccessibleDaysForDay(Day)
+                Total += GetAccessibleDaysForDay(Day)
             Next Index
             Console.WriteLine("You have {0} booked accessible spaces on all 14 days.",Total)
         End If
@@ -170,7 +172,7 @@ Module Task3
             Console.WriteLine("You have {0} booked general spaces on {1}.",Total,Day)
         Else
             For Day = 0 To MAX_DAYS -1
-                Total = Total + GetGeneralDaysForDay(Day)
+                Total += GetGeneralDaysForDay(Day)
             Next Index
             Console.WriteLine("You have {0} booked general spaces on all 14 days.",Total)
         End If
@@ -188,7 +190,7 @@ Module Task3
             Console.WriteLine("You have {0} booked general spaces on {1}.",Total,Day)
         Else
             For Day = 0 To MAX_DAYS -1
-                Total = Total + GetGeneralDaysForDay(Day) + GetAccessibleDaysForDay(Day)
+                Total += GetGeneralDaysForDay(Day) + GetAccessibleDaysForDay(Day)
             Next Index
             Console.WriteLine("You have {0} booked general spaces on all 14 days.",Total)
         End If
@@ -199,7 +201,7 @@ Module Task3
 
         For Index = 0 To 6
             If Lots(Day-1)(Index) IsNot Nothing Then
-                Total = Total + 1
+                Total += 1
             End If
         Next Index
 
@@ -211,7 +213,7 @@ Module Task3
 
         For Index = MAX_SLOTS - 1 To 6
             If Lots(Day-1)(Index) IsNot Nothing Then
-                Total = Total + 1
+                Total += 1
             End If
         Next Index
 
