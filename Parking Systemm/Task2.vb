@@ -4,7 +4,7 @@
 
 Imports System.Collections.Generic
 
-Module Task1
+Module Task2
 
     'Global Variables
     Dim MAX_DAYS As Integer = 14
