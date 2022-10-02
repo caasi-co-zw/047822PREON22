@@ -6,9 +6,9 @@ Module Task1
     Public MAX_SLOTS As Integer = 20
 
     'Licenses and Lots are indexed by day
-    Public Names(MAX_DAYS) As New List(Of String)()
-    Public Licenses(MAX_DAYS) As New List(Of String)()
-    Public Lots(MAX_DAYS) As New List(Of String)()
+    Public Names(MAX_DAYS) As List(Of String)()
+    Public Licenses(MAX_DAYS) As List(Of String)()
+    Public Lots(MAX_DAYS) As List(Of String)()
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -60,7 +60,7 @@ Module Task1
             End If
 
             'Check for availableslots for the day
-            If Lots(Day) isNot Nothing  And Lots(Day).Count >= MAX_SLOTS Then
+            If Lots(Day-1) isNot Nothing  And Lots(Day-1).Count >= MAX_SLOTS Then
                 Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                 Continue While
             End If
@@ -90,8 +90,8 @@ Module Task1
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String)
-        Lots(Day).Add(License)
-        Names(Day).Add(Name)
+        Lots(Day-1).Add(License)
+        Names(Day-1).Add(Name)
         Console.WriteLine("Records Saved!")
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
