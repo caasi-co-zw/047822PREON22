@@ -84,7 +84,7 @@ Module Task1
                     Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                     Continue While
                 End If
-            Catch Ex As Exception
+            Catch Ex As NullReferenceException
 
             End Try
 
