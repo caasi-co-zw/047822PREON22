@@ -14,9 +14,10 @@ Module Task1
     'Global Variables
     Public MAX_DAYS As Integer = 14
     Public MAX_SLOTS As Integer = 20
-    Public Names(MAX_DAYS) As List(Of String)
-    Public Licenses(MAX_DAYS) As List(Of String)
-    Public Lots(MAX_DAYS) As List(Of String)
+    Public LotsIndex As Integer = 0
+    Public NamesIndex As Integer = 0
+    Public Names(MAX_DAYS,MAX_SLOTS) As String
+    Public Lots(MAX_DAYS,MAX_SLOTS) As String
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -79,14 +80,12 @@ Module Task1
             '   Simply query to check if you have less than 15 results (ie. Results < 15)
             '
             'Check for availableslots for the day
-            Try
-                If Lots(Day-1) IsNot Nothing And Lots(Day-1).Count >= MAX_SLOTS Then
+            If Lots IsNot Nothing Then
+                If DayHasFreeSpaces(Day) Is True Then
                     Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                     Continue While
                 End If
-            Catch Ex As NullReferenceException
-
-            End Try
+            End If
 
             'Record name
             Console.WriteLine("Full name: ")
@@ -110,23 +109,33 @@ Module Task1
         'TEST
         '   See if data is cleared for all days,
         '   because you may have to loop through each day, clearing records
-        '   or simply redim the three variables like ReDim Names(MAX_DAYS) As List(Of String) = New List(Of String)
+        '   or simply redim the three variables like ReDim Names(MAX_DAYS,MAX_SLOTS) As String
         '   if it works.
         '   Also if data is not to be cleared on prompt - simply call this function on line 26 - in the loop
         '   but only if you have also switched to the timestamp version of the database or you'll have to call it on
         '   line 23 ;)
         If Lots IsNot Nothing
-            Names(MAX_DAYS).Clear()
-            Licenses(MAX_DAYS).Clear()
-            Lots(MAX_DAYS).Clear()
+            Names = Nothing
+            Lots = Nothing
         End If
         Console.WriteLine("Records cleared.")
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String)
-        Lots(Day-1).Add(License)
-        Names(Day-1).Add(Name)
+        Lots(Day-1,LotsIndex) = License
+        Names(Day-1,NamesIndex) = Name
         Console.WriteLine("Records Saved!")
         Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
     End Sub
+
+    Function DayHasFreeSpaces(Day As Integer) As Boolean
+        If Names Is Nothing Then
+            Return True
+        End If
+        For Index As Integer = 0 To MAX_SLOTS-1
+            If Names(Day-1,Index) Is Nothing Then
+                Return True
+            End If
+        Next Index
+    End Function
 End Module
