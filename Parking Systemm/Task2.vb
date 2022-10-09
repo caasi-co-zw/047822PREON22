@@ -6,14 +6,15 @@ Imports System.Collections.Generic
 
 Module Task2
 
-    'Global Variables
-    Dim MAX_DAYS As Integer = 14
-    Dim MAX_SLOTS As Integer = 20
-    Dim GeneralSlotsIndex = 0;
-    Dim AccessibleSlotsIndex = 0;
-    Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
+    Public MAX_DAYS As Integer = 14
+    Public MAX_SLOTS As Integer = 20
+    Public LotsIndex As Integer = 0
+    Public NamesIndex As Integer = 0
+    Public GeneralSlotsIndex As Integer = 0
+    Public AccessibleSlotsIndex As Integer = 0
+    Public Names(MAX_DAYS,MAX_SLOTS) As String
+    Public Licenses(MAX_DAYS,MAX_SLOTS) As String
+    Public Lots(MAX_DAYS,MAX_SLOTS) As String
 
     Sub Main()
         Dim MenuOption As Integer = 1
@@ -122,22 +123,36 @@ Module Task2
         End If
     End Sub
 
-    Function AvailableAccessibleSlots(ByVal Day As Integer) As Boolean
-        For Index = MAX_SLOTS-1 To 0 Step -1
-            If Lots(Day)(Index) = Nothing Then
-                AccessibleSlotsIndex = Index;
+    Function DayHasFreeSpaces(Day As Integer) As Boolean
+        If Names Is Nothing Then
+            Return True
+        End If
+        For Index As Integer = 0 To MAX_SLOTS-1
+            If Names(Day-1,Index) Is Nothing Then
                 Return True
             End If
         Next Index
-        Return False
     End Function
 
-    Function AvailableGeneralSlots(ByVal Day As Integer) As Boolean
-        For Index = MAX_SLOTS-1 To 7 Step -1
-            If Lots(Day)(Index) = Nothing Then
+    Function DayHasFreeAccessibleSpaces(Day As Integer) As Boolean
+        If Names Is Nothing Then
+            Return True
+        End If
+        For Index As Integer = 0 To 6-1
+            If Names(Day-1,Index) Is Nothing Then
                 Return True
             End If
         Next Index
-        Return False
+    End Function
+
+    Function DayHasFreeGeneralSpaces(Day As Integer) As Boolean
+        If Names Is Nothing Then
+            Return True
+        End If
+        For Index As Integer = MAX_SLOTS-1 To 6
+            If Names(Day-1,Index) Is Nothing Then
+                Return True
+            End If
+        Next Index
     End Function
 End Module

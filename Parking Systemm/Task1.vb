@@ -14,8 +14,8 @@ Module Task1
     'Global Variables
     Public MAX_DAYS As Integer = 14
     Public MAX_SLOTS As Integer = 20
-    Public LotsIndex As Integer = 0
-    Public NamesIndex As Integer = 0
+    Public LotsIndex(MAX_DAYS) As Integer = 0
+    Public NamesIndex(MAX_DAYS) As Integer = 0
     Public Names(MAX_DAYS,MAX_SLOTS) As String
     Public Lots(MAX_DAYS,MAX_SLOTS) As String
 
@@ -114,22 +114,34 @@ Module Task1
         '   Also if data is not to be cleared on prompt - simply call this function on line 26 - in the loop
         '   but only if you have also switched to the timestamp version of the database or you'll have to call it on
         '   line 23 ;)
-        If Lots IsNot Nothing
-            Names = Nothing
-            Lots = Nothing
-        End If
+        Names = Nothing
+        Lots = Nothing
+        NamesIndex = Nothing
+        LotsIndex = Nothing
         Console.WriteLine("Records cleared.")
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String)
-        Lots(Day-1,LotsIndex) = License
-        Names(Day-1,NamesIndex) = Name
+        Dim Index As Integer
+        Index = Day-1
+        Lots(Day,LotsIndex(Index)) = License
+        Names(Day,NamesIndex(Index)) = Name
+
+        LotsIndex(Index) += 1
+        NamesIndex(Index) += 1
+
         Console.WriteLine("Records Saved!")
-        Console.WriteLine("You have been assigned to parking lot no {0}",Lots(Day).Count)
+        Console.WriteLine("You have been assigned to parking lot no {0}",LotsIndex)
+
+        ' We shouldn't even get here since the array would be full already ;)
+        If LotsIndex(Index) > MAX_SLOTS Then
+            LotsIndex(Index) = 0
+            NamesIndex(Index) = 0
+        End If
     End Sub
 
     Function DayHasFreeSpaces(Day As Integer) As Boolean
-        If Names Is Nothing Then
+        If IsNull(Names) Then
             Return True
         End If
         For Index As Integer = 0 To MAX_SLOTS-1
@@ -137,5 +149,23 @@ Module Task1
                 Return True
             End If
         Next Index
+        Return False
+    End Function
+
+    Function GetDayIndex(Day As Integer) As Boolean
+        If Names = Nothing Then
+            NamesIndex(Day-1) = 0
+            LotsIndex(Day-1) = 0
+        End If
+        For Index As Integer = 0 To MAX_SLOTS-1
+            If Names(Day-1,Index) = Nothing Then
+                NamesIndex(Day) = Index
+                LotsIndex(Day) = Index
+            End If
+        Next Index
+    End Function
+
+    Function IsNull(Arr As Array) As Boolean
+        Return If(Arr IsNot Nothing,False,True)
     End Function
 End Module

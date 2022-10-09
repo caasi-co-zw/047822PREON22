@@ -9,8 +9,8 @@ Module Task3
     'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
-    Dim GeneralSlotsIndex = 0;
-    Dim AccessibleSlotsIndex = 0;
+    Dim GeneralSlotsIndex = 0
+    Dim AccessibleSlotsIndex = 0
     Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
     Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
     Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
