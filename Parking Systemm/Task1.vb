@@ -14,8 +14,8 @@ Module Task1
     'Global Variables
     Public MAX_DAYS As Integer = 14
     Public MAX_SLOTS As Integer = 20
-    Public LotsIndex(MAX_DAYS) As Integer = 0
-    Public NamesIndex(MAX_DAYS) As Integer = 0
+    Public LotsIndex(MAX_DAYS) As Integer
+    Public NamesIndex(MAX_DAYS) As Integer
     Public Names(MAX_DAYS,MAX_SLOTS) As String
     Public Lots(MAX_DAYS,MAX_SLOTS) As String
 
@@ -81,7 +81,7 @@ Module Task1
             '
             'Check for availableslots for the day
             If Lots IsNot Nothing Then
-                If DayHasFreeSpaces(Day) Is True Then
+                If DayHasFreeSpaces(Day) Then
                     Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                     Continue While
                 End If
@@ -152,17 +152,20 @@ Module Task1
         Return False
     End Function
 
-    Function GetDayIndex(Day As Integer) As Boolean
-        If Names = Nothing Then
+    Function GetDayIndex(Day As Integer) As Integer
+        If Names Is Nothing Then
             NamesIndex(Day-1) = 0
             LotsIndex(Day-1) = 0
+            Return 0
         End If
         For Index As Integer = 0 To MAX_SLOTS-1
-            If Names(Day-1,Index) = Nothing Then
+            If Names(Day-1,Index) Is Nothing Then
                 NamesIndex(Day) = Index
                 LotsIndex(Day) = Index
+                Return 0
             End If
         Next Index
+        Return MAX_SLOTS
     End Function
 
     Function IsNull(Arr As Array) As Boolean
