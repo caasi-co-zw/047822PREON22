@@ -1,17 +1,6 @@
-'   ATTENTION-------------------------------------------------------------------|
-'   My assumptions are that it will work ;) BUT                                 |
-'   Please test this task thoroughly. You may want look out for the following   |
-'   ----------------------------------------------------------------------------|
-'   TEST       = Test the feature or function                                   |
-'   BONUS TIP  = Incase you find yourself in a different situation              |
-'   All this should however be applied to the three tasks separately - DRY      |
-'   ----------------------------------------------------------------------------|
-
 Imports System.Collections.Generic
 
 Module Task1
-
-    'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
     Dim LotsIndex(MAX_DAYS) As Integer
@@ -19,7 +8,8 @@ Module Task1
     Dim Names(MAX_DAYS,MAX_SLOTS) As String
     Dim Lots(MAX_DAYS,MAX_SLOTS) As String
 
-    'Controls the menu using a loop
+    'ENTRY POINT
+    'Responsible for the menu
     Sub Main()
         Dim MenuOption As Integer = 1
 
@@ -98,7 +88,6 @@ Module Task1
         End While
     End Sub
 
-    ' Clears all records
     Sub ClearReservations()
         For i As Integer = 0 To 13
             NamesIndex(i) = 0
@@ -125,22 +114,6 @@ Module Task1
             Return False
         End If
         Return If (LotsIndex(Day-1) < MAX_SLOTS -1,False,True)
-    End Function
-
-    Function GetDayIndex(Day As Integer) As Integer
-        If Names Is Nothing Then
-            NamesIndex(Day-1) = 0
-            LotsIndex(Day-1) = 0
-            Return 0
-        End If
-        For Index As Integer = 0 To MAX_SLOTS-1
-            If Names(Day-1,Index) Is Nothing Then
-                NamesIndex(Day) = Index
-                LotsIndex(Day) = Index
-                Return 0
-            End If
-        Next Index
-        Return MAX_SLOTS
     End Function
 
     Function IsNull(Arr As Array) As Boolean
