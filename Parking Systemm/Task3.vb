@@ -1,21 +1,20 @@
-'   ATTENTION---------------------|
-'   REFER TO TASK 1               |
-'   ------------------------------|
-
 Imports System.Collections.Generic
 
 Module Task3
 
-    'Global Variables
     Dim MAX_DAYS As Integer = 14
     Dim MAX_SLOTS As Integer = 20
-    Dim GeneralSlotsIndex = 0
-    Dim AccessibleSlotsIndex = 0
-    Public Names(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Licenses(MAX_DAYS) As List(Of String) = New List(Of String)
-    Public Lots(MAX_DAYS) As List(Of String) = New List(Of String)
+    Dim Names(MAX_DAYS,MAX_SLOTS) As String
+    Dim Lots(MAX_DAYS,MAX_SLOTS) As String
+
+    Dim GeneralSlotsIndex(MAX_DAYS) As Integer
+    Dim AccessibleSlotsIndex(MAX_DAYS) As Integer
+    Dim EntriesCount(MAX_DAYS) As Integer
+    Dim GeneralFrom As Integer = 6
+    Dim AccessibleFrom As Integer = 0
 
     Sub Main()
+        ClearReservations()
         Dim MenuOption As Integer = 1
         While MenuOption < 9
 
@@ -42,7 +41,7 @@ Module Task3
 
             Select Case MenuOption
                 Case 1
-                    AddReservation()
+                    AddReservation() 'Error
                 Case 2
                     ClearReservations()
                 Case 3
@@ -86,16 +85,9 @@ Module Task3
             Console.WriteLine("Do you want an accessible space? [Y/N]")
             Accessible = Console.ReadLine()
 
-            If Accessible.ToUpper = "Y" Then
-                'Check for availableslots for the day
-                If AvailableAccessibleSlots(Day-1) <> True Then
-                    Console.WriteLine("Day {0}, inaccessible is fully booked. Try another day.",Day)
-                    Continue While
-                End If
-            Else
-                'Check for availableslots for the day
-                If AvailableGeneralSlots(Day-1) <> True Then
-                    Console.WriteLine("Day {0}, accessible is fully booked. Try another day.",Day)
+            If Lots IsNot Nothing Then
+                If IsFullyBooked(Day,Accessible.ToUpper = "Y") Then
+                    Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                     Continue While
                 End If
             End If
@@ -108,7 +100,7 @@ Module Task3
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
-            RecordReservation(Day,Names,License,Accessible.ToUpper = "Y" )
+            RecordReservation(Day,Name,License,Accessible.ToUpper = "Y" )
 
             'Ask if they want another reservation
             Console.WriteLine("Add another reservation? [Y/N]")
@@ -116,37 +108,46 @@ Module Task3
         End While
     End Sub
 
-    ' Clears all records * (Bugs? RT1)
     Sub ClearReservations()
-        If Lots IsNot Nothing
-            Names(MAX_DAYS).Clear()
-            Licenses(MAX_DAYS).Clear()
-            Lots(MAX_DAYS).Clear()
-        End If
-
+        For i As Integer = 0 To 13
+            EntriesCount(i) = 0
+            GeneralSlotsIndex(i) = 20
+            AccessibleSlotsIndex(i) = 0
+        Next i
         Console.WriteLine("Records cleared.")
     End Sub
 
     Sub RecordReservation(ByVal Day As Integer,ByVal Name As String,ByVal License As String,Accessible As Boolean)
-        If Accessible <> True Then
-            Lots(Day-1).Insert(AccessibleSlotsIndex,License)
-            Names(Day-1).Insert(AccessibleSlotsIndex,Name)
+        Day -= 1
+
+        If Accessible Then
+            Lots(Day,AccessibleSlotsIndex(Day)) = License
+            Names(Day,AccessibleSlotsIndex(Day)) = Name
+
+            AccessibleSlotsIndex(Day) += 1
+
             Console.WriteLine("Records Saved")
-            Console.WriteLine("You have been assigned to parking lot no {0}",AccessibleSlotsIndex)
+            Console.WriteLine("You have been assigned to parking lot no {0}",CInt(AccessibleSlotsIndex(Day)))
+
         Else
-            Lots(Day-1).Insert(GeneralSlotsIndex,License)
-            Names(Day-1).Insert(GeneralSlotsIndex,Name)
+            Lots(Day,GeneralSlotsIndex(Day)-1) = License
+            Names(Day,GeneralSlotsIndex(Day)-1) = Name
+
+
             Console.WriteLine("Records Saved")
-            Console.WriteLine("You have been assigned to parking lot no {0}",GeneralSlotsIndex)
-            GeneralSlotsIndex = GeneralSlotsIndex-1
+            Console.WriteLine("You have been assigned to parking lot no {0}",CInt(GeneralSlotsIndex(Day)))
+
+            GeneralSlotsIndex(Day) -= 1
         End If
+
+        EntriesCount(Day) += 1
     End Sub
 
     Sub CheckAccessibleSpaceUsed(AskDay As Boolean)
         Dim Day As Integer
         Dim Total As Integer = 0
 
-        If AskDay  = True Then
+        If AskDay Then
             Console.WriteLine("Day number: ")
             Day = Console.ReadLine()
 
@@ -155,7 +156,7 @@ Module Task3
         Else
             For Day = 0 To MAX_DAYS -1
                 Total += GetAccessibleDaysForDay(Day)
-            Next Index
+            Next Day
             Console.WriteLine("You have {0} booked accessible spaces on all 14 days.",Total)
         End If
     End Sub
@@ -164,7 +165,7 @@ Module Task3
         Dim Day As Integer
         Dim Total As Integer = 0
 
-        If AskDay  = True Then
+        If AskDay Then
             Console.WriteLine("Day number: ")
             Day = Console.ReadLine()
 
@@ -173,7 +174,7 @@ Module Task3
         Else
             For Day = 0 To MAX_DAYS -1
                 Total += GetGeneralDaysForDay(Day)
-            Next Index
+            Next Day
             Console.WriteLine("You have {0} booked general spaces on all 14 days.",Total)
         End If
     End Sub
@@ -182,7 +183,7 @@ Module Task3
         Dim Day As Integer
         Dim Total As Integer = 0
 
-        If AskDay  = True Then
+        If AskDay Then
             Console.WriteLine("Day number: ")
             Day = Console.ReadLine()
 
@@ -191,51 +192,36 @@ Module Task3
         Else
             For Day = 0 To MAX_DAYS -1
                 Total += GetGeneralDaysForDay(Day) + GetAccessibleDaysForDay(Day)
-            Next Index
+            Next Day
             Console.WriteLine("You have {0} booked general spaces on all 14 days.",Total)
         End If
     End Sub
 
+    Function IsFullyBooked(Day As Integer,Accessible As Boolean) As Boolean
+        If IsNull(Names) Then
+            Return False
+        End If
+
+        If EntriesCount(Day - 1) > MAX_SLOTS Then
+            Return True
+        End If
+
+        If Accessible Then
+            Return If (AccessibleSlotsIndex(Day-1) < MAX_SLOTS - 1,False,True)
+        Else
+            Return If (GeneralSlotsIndex(Day-1) >= GeneralFrom - 1,False,True)
+        End If
+    End Function
+
+    Function IsNull(Arr As Array) As Boolean
+        Return If(Arr IsNot Nothing,False,True)
+    End Function
+
     Function GetAccessibleDaysForDay(Day As Integer) As Integer
-        Dim Total As Integer = 0
-
-        For Index = 0 To 6
-            If Lots(Day-1)(Index) IsNot Nothing Then
-                Total += 1
-            End If
-        Next Index
-
-        Return Total
+        Return AccessibleSlotsIndex(Day)
     End Function
 
     Function GetGeneralDaysForDay(Day As Integer) As Integer
-        Dim Total As Integer = 0
-
-        For Index = MAX_SLOTS - 1 To 6
-            If Lots(Day-1)(Index) IsNot Nothing Then
-                Total += 1
-            End If
-        Next Index
-
-        Return Total
-    End Function
-
-    Function AvailableAccessibleSlots(ByVal Day As Integer) As Boolean
-        For Index = MAX_SLOTS-1 To 0 Step -1
-            If Lots(Day)(Index) = Nothing Then
-                AccessibleSlotsIndex = Index;
-                Return True
-            End If
-        Next Index
-        Return False
-    End Function
-
-    Function AvailableGeneralSlots(ByVal Day As Integer) As Boolean
-        For Index = MAX_SLOTS-1 To 7 Step -1
-            If Lots(Day)(Index) = Nothing Then
-                Return True
-            End If
-        Next Index
-        Return False
+        Return 20 - GeneralSlotsIndex(Day)
     End Function
 End Module
