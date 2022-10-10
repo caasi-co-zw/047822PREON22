@@ -12,13 +12,14 @@ Imports System.Collections.Generic
 Module Task1
 
     'Global Variables
-    Public MAX_DAYS As Integer = 14
-    Public MAX_SLOTS As Integer = 20
-    Public LotsIndex(MAX_DAYS) As Integer
-    Public NamesIndex(MAX_DAYS) As Integer
-    Public Names(MAX_DAYS,MAX_SLOTS) As String
-    Public Lots(MAX_DAYS,MAX_SLOTS) As String
+    Dim MAX_DAYS As Integer = 14
+    Dim MAX_SLOTS As Integer = 20
+    Dim LotsIndex(MAX_DAYS) As Integer
+    Dim NamesIndex(MAX_DAYS) As Integer
+    Dim Names(MAX_DAYS,MAX_SLOTS) As String
+    Dim Lots(MAX_DAYS,MAX_SLOTS) As String
 
+    'Controls the menu using a loop
     Sub Main()
         Dim MenuOption As Integer = 1
 
@@ -63,23 +64,17 @@ Module Task1
         'While the user has entered y/Y continue to add more data
         While AddAnother.ToUpper = "Y"
 
-            'Record reservation day
+            'Get reservation day
             Console.WriteLine("Day to reserve: ")
             Day = Console.ReadLine()
 
             If Day < 1 OrElse Day > MAX_DAYS Then
                 Console.WriteLine("Day {0} must be between 1 and 14.",Day)
+
+                'If day is invalid restart loop ;)
                 Continue While
             End If
 
-            'BONUS TIP
-            '   If you have to use real dates & use a real database,
-            '   you can convert the date to a timestamp and add all the details to the day
-            '   timestamped.
-            '   To check if there's any available spaces,
-            '   Simply query to check if you have less than 15 results (ie. Results < 15)
-            '
-            'Check for availableslots for the day
             If Lots IsNot Nothing Then
                 If IsFullyBooked(Day) Then
                     Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
@@ -87,11 +82,11 @@ Module Task1
                 End If
             End If
 
-            'Record name
+            'Get name
             Console.WriteLine("Full name: ")
             Name = Console.ReadLine()
 
-            'Record license
+            'Get license
             Console.WriteLine("License no: ")
             License = Console.ReadLine()
 
@@ -105,19 +100,10 @@ Module Task1
 
     ' Clears all records
     Sub ClearReservations()
-
-        'TEST
-        '   See if data is cleared for all days,
-        '   because you may have to loop through each day, clearing records
-        '   or simply redim the three variables like ReDim Names(MAX_DAYS,MAX_SLOTS) As String
-        '   if it works.
-        '   Also if data is not to be cleared on prompt - simply call this function on line 26 - in the loop
-        '   but only if you have also switched to the timestamp version of the database or you'll have to call it on
-        '   line 23 ;)
-        Names = Nothing
-        Lots = Nothing
-        NamesIndex = Nothing
-        LotsIndex = Nothing
+        For i As Integer = 0 To 13
+            NamesIndex(i) = 0
+            LotsIndex(i) = 0
+        Next i
         Console.WriteLine("Records cleared.")
     End Sub
 
@@ -132,24 +118,13 @@ Module Task1
 
         Console.WriteLine("Records Saved!")
         Console.WriteLine("You have been assigned to parking lot no {0}",CInt(LotsIndex(Index)))
-
-        ' We shouldn't even get here since the array would be full already ;)
-        If LotsIndex(Index) > MAX_SLOTS Then
-            LotsIndex(Index) = 0
-            NamesIndex(Index) = 0
-        End If
     End Sub
 
     Function IsFullyBooked(Day As Integer) As Boolean
         If IsNull(Names) Then
             Return False
         End If
-        For Index As Integer = 0 To MAX_SLOTS-1
-            If Names(Day-1,Index) Is Nothing Then
-                Return False
-            End If
-        Next Index
-        Return True
+        Return If (LotsIndex(Day-1) < MAX_SLOTS -1,False,True)
     End Function
 
     Function GetDayIndex(Day As Integer) As Integer
