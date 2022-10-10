@@ -81,7 +81,7 @@ Module Task1
             '
             'Check for availableslots for the day
             If Lots IsNot Nothing Then
-                If DayHasFreeSpaces(Day) Then
+                If IsFullyBooked(Day) Then
                     Console.WriteLine("Day {0} is fully booked. Try another day.",Day)
                     Continue While
                 End If
@@ -131,7 +131,7 @@ Module Task1
         NamesIndex(Index) += 1
 
         Console.WriteLine("Records Saved!")
-        Console.WriteLine("You have been assigned to parking lot no {0}",LotsIndex)
+        Console.WriteLine("You have been assigned to parking lot no {0}",CInt(LotsIndex(Index)))
 
         ' We shouldn't even get here since the array would be full already ;)
         If LotsIndex(Index) > MAX_SLOTS Then
@@ -140,16 +140,16 @@ Module Task1
         End If
     End Sub
 
-    Function DayHasFreeSpaces(Day As Integer) As Boolean
+    Function IsFullyBooked(Day As Integer) As Boolean
         If IsNull(Names) Then
-            Return True
+            Return False
         End If
         For Index As Integer = 0 To MAX_SLOTS-1
             If Names(Day-1,Index) Is Nothing Then
-                Return True
+                Return False
             End If
         Next Index
-        Return False
+        Return True
     End Function
 
     Function GetDayIndex(Day As Integer) As Integer
