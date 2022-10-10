@@ -18,7 +18,7 @@ Module Task1
 
             'Make sure value is in range
             If MenuOption < 1 Then
-                MenuOption = 3
+                MenuOption = 4
             End If
 
             Console.WriteLine("|=================================|")
