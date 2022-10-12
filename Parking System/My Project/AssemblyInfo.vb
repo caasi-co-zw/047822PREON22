@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Parking Systemm")>
+<Assembly: AssemblyTitle("Parking System")>
 <Assembly: AssemblyDescription("www.caasi.co.zw")>
 <Assembly: AssemblyCompany("Caasi")>
-<Assembly: AssemblyProduct("Parking Systemm")>
+<Assembly: AssemblyProduct("Parking System")>
 <Assembly: AssemblyCopyright("Copyright ©Caasi Zimbabwe 2022")>
 <Assembly: AssemblyTrademark("")>
 

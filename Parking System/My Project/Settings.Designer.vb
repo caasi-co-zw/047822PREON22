@@ -57,16 +57,16 @@ Namespace My
 End Namespace
 
 Namespace My
-    
+
     <Global.Microsoft.VisualBasic.HideModuleNameAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
     Friend Module MySettingsProperty
-        
+
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.Parking_Systemm.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Parking_System.My.MySettings
             Get
-                Return Global.Parking_Systemm.My.MySettings.Default
+                Return Global.Parking_System.My.MySettings.Default
             End Get
         End Property
     End Module
